@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0d0c14">
+  <meta name="description" content="Blink: snaps and chats that don’t stick around.">
+  <title>Blink</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='26' fill='%230d0c14'/%3E%3Crect x='28' y='28' width='44' height='44' rx='13' fill='%23ffe14d'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div id="boot" class="boot" aria-hidden="true"><span class="blip big"></span></div>
+
+  <div id="auth" hidden></div>
+
+  <div id="app" hidden data-view="stage" data-chat="0">
+    <nav class="rail" aria-label="Main">
+      <div class="logo" aria-hidden="true"><span class="blip"></span></div>
+      <button class="nav-btn" data-tab="chats" aria-label="Chats"><span data-ic="chat"></span><b class="badge" id="bChats" hidden></b></button>
+      <button class="nav-btn" data-tab="camera" aria-label="Camera"><span data-ic="camera"></span></button>
+      <button class="nav-btn" data-tab="stories" aria-label="Stories"><span data-ic="stories"></span><b class="badge dot" id="bStories" hidden></b></button>
+      <button class="nav-btn" data-tab="friends" aria-label="Friends"><span data-ic="users"></span><b class="badge" id="bFriends" hidden></b></button>
+    </nav>
+
+    <aside class="panel" id="panel"></aside>
+
+    <main class="stage" id="stage">
+      <section class="cam off" id="camView" aria-label="Camera">
+        <video id="camVideo" playsinline muted autoplay></video>
+        <div class="cam-off" id="camOff">
+          <span class="blip big"></span>
+          <h2>Camera is off</h2>
+          <p>Turn it on to take a snap. Photos stay on your device until you send them.</p>
+          <div class="btn-row">
+            <button class="btn primary" data-act="camStart">Turn on camera</button>
+            <button class="btn ghost" data-act="pickFile">Choose a photo</button>
+          </div>
+        </div>
+        <div class="cam-top">
+          <button class="icon-btn me-mobile" data-act="openProfile" aria-label="Your profile" id="camMe"></button>
+          <div id="camTarget"></div>
+          <button class="icon-btn" data-act="camFlip" aria-label="Switch camera"><span data-ic="flip" data-size="22"></span></button>
+        </div>
+        <div class="cam-bottom">
+          <button class="icon-btn lg" data-act="pickFile" aria-label="Choose a photo"><span data-ic="image" data-size="24"></span></button>
+          <button class="shutter" data-act="shoot" aria-label="Take a snap"></button>
+          <span class="icon-btn lg ghost-slot" aria-hidden="true"></span>
+        </div>
+        <div class="shutter-flash" id="shutterFlash"></div>
+      </section>
+      <section class="chatv" id="chatView" hidden></section>
+    </main>
+  </div>
+
+  <div id="layer"></div>
+  <div id="toasts" role="status" aria-live="polite"></div>
+
+  <input type="file" id="fileIn" accept="image/*" hidden>
+  <input type="file" id="avatarIn" accept="image/*" hidden>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
